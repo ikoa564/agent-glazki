@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:agent_glazki"
         mc:Ignorable="d"
-        Title="Абдеев И. Р." Height="450" Width="800" MinWidth="800" MinHeight="450" FontFamily="Century Gothic" Icon="res/Глазки-save.ico">
+        Title="MainWindow" Height="450" Width="800" MinWidth="800" MinHeight="450" FontFamily="Century Gothic" Icon="res/Глазки-save.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="75" />
@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
         <Image Source="res/Глазки-save.png" HorizontalAlignment="Left"></Image>
         <Frame Grid.Row="1" Name="MainFrame" ContentRendered="MainFrame_ContentRendered" NavigationUIVisibility="Hidden"></Frame>
-        <TextBlock Grid.Row="0" Text="Глазки-save" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="0" Text="Агентство Абдеев" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
         <Button Content="Назад" Name="BtnBack" HorizontalAlignment="Right" Click="BtnBack_Click"></Button>
     </Grid>
 </Window>
