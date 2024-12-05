@@ -9,35 +9,7 @@
       Title="AgentsPage" FontFamily="Century Gothic">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-
-        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBox Name="TBoxSearch" TextChanged="TBoxSearch_TextChanged" Width="300" FontSize="15" Margin="10"></TextBox>
-            <ComboBox Name="ComboSort" SelectionChanged="ComboSort_SelectionChanged" Width="200" FontSize="15" Margin="10">
-                    <TextBlock>Сортировка</TextBlock>
-                    <TextBlock>Наименование по возрастанию</TextBlock>
-                    <TextBlock>Наименование по убыванию</TextBlock>
-                    <TextBlock>Скидка по возрастанию</TextBlock>
-                    <TextBlock>Скидка по убыванию</TextBlock>
-                    <TextBlock>Приоритет по возрастанию</TextBlock>
-                    <TextBlock>Скидка по убыванию</TextBlock>
-            </ComboBox>
-            <ComboBox Name="ComboType" SelectionChanged="ComboType_SelectionChanged"  Width="200" FontSize="15" Margin="10">
-                <TextBlock>Все типы</TextBlock>
-                <TextBlock>МФО</TextBlock>
-                <TextBlock>ООО</TextBlock>
-                <TextBlock>ЗАО</TextBlock>
-                <TextBlock>МКК</TextBlock>
-                <TextBlock>ОАО</TextBlock>
-                <TextBlock>ПАО</TextBlock>
-            </ComboBox>
-        </WrapPanel>
-        
-        <ListView Name="AgentListView" Grid.Row="2">
+        <ListView Name="AgentListView" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -46,7 +18,6 @@
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
@@ -67,16 +38,12 @@
                             <TextBlock Text="{Binding AgentTypeText}" FontSize="20" TextWrapping="Wrap" />
                             <TextBlock Text=" | " FontSize="20" />
                             <TextBlock Text="{Binding Title}" FontSize="20" TextWrapping="Wrap" />
-                            <TextBlock Text="10%" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" FontSize="30" Margin="10"></TextBlock>
+                            <TextBlock Text="Скидка" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" FontSize="30" Margin="10"></TextBlock>
                         </StackPanel>
                         <TextBlock Text="Продаж за год:" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" FontSize="20" ></TextBlock>
                         <TextBlock Text="{Binding Phone}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" FontSize="20"></TextBlock>
                         <TextBlock Text="{Binding Priority, StringFormat=Приоритетность: {0}}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" FontSize="20" ></TextBlock>
-
-                        <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal">
-                            <Button Name="EditBtn" Content="Редактировать" Margin="2"></Button>
-                            <Button Name="DeleteBtn" Content="Удалить" Margin="2"></Button>
-                        </StackPanel>
+                        
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

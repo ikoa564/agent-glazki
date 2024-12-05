@@ -44,14 +44,6 @@ namespace agent_glazki
                 currentAgents = currentAgents.Where(p => p.AgentTypeID==4).ToList();
             if (ComboType.SelectedIndex == 5)
                 currentAgents = currentAgents.Where(p => p.AgentTypeID==5).ToList();
-            if (ComboType.SelectedIndex == 6)
-                currentAgents = currentAgents.Where(p => p.AgentTypeID==6).ToList();
-
-            currentAgents = currentAgents.Where(p => p.Title.ToLower().Contains(TBoxSearch.Text.ToLower())
-                          || p.Email.ToLower().Contains(TBoxSearch.Text.ToLower())
-                          || p.Phone.ToLower().Contains(TBoxSearch.Text.ToLower())).ToList();
-
-            AgentListView.ItemsSource = currentAgents.ToList();
 
             if (ComboSort.SelectedIndex == 1)
                 AgentListView.ItemsSource = currentAgents.OrderBy(p => p.Title).ToList();
@@ -66,6 +58,11 @@ namespace agent_glazki
             if (ComboSort.SelectedIndex == 6)
                 AgentListView.ItemsSource = currentAgents.OrderByDescending(p => p.Priority).ToList();
 
+            currentAgents = currentAgents.Where(p => p.Title.ToLower().Contains(TBoxSearch.Text.ToLower())).ToList();
+            currentAgents = currentAgents.Where(p => p.Email.ToLower().Contains(TBoxSearch.Text.ToLower())).ToList();
+            currentAgents = currentAgents.Where(p => p.Phone.ToLower().Contains(TBoxSearch.Text.ToLower())).ToList();
+
+            AgentListView.ItemsSource = currentAgents.ToList();
         }
 
         private void TBoxSearch_TextChanged(object sender, TextChangedEventArgs e)

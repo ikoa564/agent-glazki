@@ -64,50 +64,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Agent.cs">
-      <DependentUpon>ModelAbdeev.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AgentPriorityHistory.cs">
-      <DependentUpon>ModelAbdeev.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AgentType.cs">
-      <DependentUpon>ModelAbdeev.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Material.cs">
-      <DependentUpon>ModelAbdeev.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MaterialCountHistory.cs">
-      <DependentUpon>ModelAbdeev.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MaterialType.cs">
-      <DependentUpon>ModelAbdeev.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelAbdeev.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelAbdeev.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Product.cs">
-      <DependentUpon>ModelAbdeev.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProductCostHistory.cs">
-      <DependentUpon>ModelAbdeev.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProductMaterial.cs">
-      <DependentUpon>ModelAbdeev.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProductSale.cs">
-      <DependentUpon>ModelAbdeev.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProductType.cs">
-      <DependentUpon>ModelAbdeev.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Shop.cs">
-      <DependentUpon>ModelAbdeev.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Supplier.cs">
-      <DependentUpon>ModelAbdeev.tt</DependentUpon>
-    </Compile>
     <Page Include="AddEditPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -323,12 +279,6 @@
     <Content Include="ModelAbdeev.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ModelAbdeev.Context.cs</LastGenOutput>
-      <DependentUpon>ModelAbdeev.edmx</DependentUpon>
-    </Content>
-    <Content Include="ModelAbdeev.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelAbdeev.edmx</DependentUpon>
-      <LastGenOutput>ModelAbdeev.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

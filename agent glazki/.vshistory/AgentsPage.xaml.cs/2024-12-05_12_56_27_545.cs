@@ -51,8 +51,6 @@ namespace agent_glazki
                           || p.Email.ToLower().Contains(TBoxSearch.Text.ToLower())
                           || p.Phone.ToLower().Contains(TBoxSearch.Text.ToLower())).ToList();
 
-            AgentListView.ItemsSource = currentAgents.ToList();
-
             if (ComboSort.SelectedIndex == 1)
                 AgentListView.ItemsSource = currentAgents.OrderBy(p => p.Title).ToList();
             if (ComboSort.SelectedIndex == 2)
@@ -66,6 +64,7 @@ namespace agent_glazki
             if (ComboSort.SelectedIndex == 6)
                 AgentListView.ItemsSource = currentAgents.OrderByDescending(p => p.Priority).ToList();
 
+            AgentListView.ItemsSource = currentAgents.ToList();
         }
 
         private void TBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
