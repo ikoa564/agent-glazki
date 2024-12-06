@@ -54,10 +54,19 @@ namespace agent_glazki
             if (ComboType.SelectedIndex == 6)
                 currentAgents = currentAgents.Where(p => p.AgentTypeID==6).ToList();
 
+
             currentAgents = currentAgents.Where(p =>
                 p.Title.ToLower().Contains(TBoxSearch.Text.ToLower())
                 || p.Email.ToLower().Contains(TBoxSearch.Text.ToLower())
-                || p.Phone.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "").Contains(TBoxSearch.Text.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", ""))).ToList();
+                || p.Phone.Replace("(", "")
+                          .Replace(")", "")
+                          .Replace("-", "")
+                          .Replace(" ", "")
+                          .Contains(TBoxSearch.Text.Replace("(", "")
+                                                   .Replace(")", "")
+                                                   .Replace("-", "")
+                                                   .Replace(" ", ""))).ToList();
+
 
             if (ComboSort.SelectedIndex == 1)
                 currentAgents = currentAgents.OrderBy(p => p.Title).ToList();

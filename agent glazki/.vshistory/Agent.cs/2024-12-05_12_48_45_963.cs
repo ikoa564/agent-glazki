@@ -37,8 +37,6 @@ namespace agent_glazki
         public string Title { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-
-       
         public string Logo { get; set; }
         public string Address { get; set; }
         public int Priority { get; set; }

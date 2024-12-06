@@ -54,26 +54,28 @@ namespace agent_glazki
             if (ComboType.SelectedIndex == 6)
                 currentAgents = currentAgents.Where(p => p.AgentTypeID==6).ToList();
 
-            currentAgents = currentAgents.Where(p =>
-                p.Title.ToLower().Contains(TBoxSearch.Text.ToLower())
-                || p.Email.ToLower().Contains(TBoxSearch.Text.ToLower())
-                || p.Phone.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "").Contains(TBoxSearch.Text.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", ""))).ToList();
+            currentAgents = currentAgents.Where(p => p.Title.ToLower().Contains(TBoxSearch.Text.ToLower())
+                          || p.Email.ToLower().Contains(TBoxSearch.Text.ToLower())
+                          || p.Phone.ToLower().Contains(TBoxSearch.Text.ToLower())).ToList();
+
 
             if (ComboSort.SelectedIndex == 1)
-                currentAgents = currentAgents.OrderBy(p => p.Title).ToList();
+                AgentListView.ItemsSource = currentAgents.OrderBy(p => p.Title).ToList();
             if (ComboSort.SelectedIndex == 2)
-                currentAgents = currentAgents.OrderByDescending(p => p.Title).ToList();
+                AgentListView.ItemsSource = currentAgents.OrderByDescending(p => p.Title).ToList();
             if (ComboSort.SelectedIndex == 3)
-                currentAgents = currentAgents.OrderBy(p => p.Discount).ToList();
+                AgentListView.ItemsSource = currentAgents.OrderBy(p => p.Discount).ToList();
             if (ComboSort.SelectedIndex == 4)
-                currentAgents = currentAgents.OrderByDescending(p => p.Discount).ToList();
+                AgentListView.ItemsSource = currentAgents.OrderByDescending(p => p.Discount).ToList();
             if (ComboSort.SelectedIndex == 5)
-                currentAgents = currentAgents.OrderBy(p => p.Priority).ToList();
+                AgentListView.ItemsSource = currentAgents.OrderBy(p => p.Priority).ToList();
             if (ComboSort.SelectedIndex == 6)
-                currentAgents = currentAgents.OrderByDescending(p => p.Priority).ToList();
-            
-            AgentListView.ItemsSource = currentAgents;
-            TableList = currentAgents;
+                AgentListView.ItemsSource = currentAgents.OrderByDescending(p => p.Priority).ToList();
+
+            MessageBox.Show($"CurrentAgents count after sort: {currentAgents.Count}");
+            MessageBox.Show($"First item (if any): {currentAgents.FirstOrDefault()?.Title}");
+
+            TableList = currentAgents.ToList();
             ChangePage(0, 0);
         }
 
@@ -164,11 +166,6 @@ namespace agent_glazki
                 for (int i = 1; i <=CountPage; i++)
                     PageListBox.Items.Add(i);
                 PageListBox.SelectedIndex = CurrentPage;
-
-                min = CurrentPage * 10 + 10 < CountRecords ? CurrentPage * 10 + 10 : CountRecords;
-                TBCount.Text = min.ToString();
-                TBAllRecords.Text = " из " + CountRecords.ToString();
-
                 AgentListView.ItemsSource = CurrentPageList;
                 AgentListView.Items.Refresh();
             }

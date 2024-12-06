@@ -54,10 +54,10 @@ namespace agent_glazki
             if (ComboType.SelectedIndex == 6)
                 currentAgents = currentAgents.Where(p => p.AgentTypeID==6).ToList();
 
-            currentAgents = currentAgents.Where(p =>
-                p.Title.ToLower().Contains(TBoxSearch.Text.ToLower())
-                || p.Email.ToLower().Contains(TBoxSearch.Text.ToLower())
-                || p.Phone.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "").Contains(TBoxSearch.Text.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", ""))).ToList();
+            currentAgents = currentAgents.Where(p => p.Title.ToLower().Contains(TBoxSearch.Text.ToLower())
+                          || p.Email.ToLower().Contains(TBoxSearch.Text.ToLower())
+                          || p.Phone.ToLower().Contains(TBoxSearch.Text.ToLower())).ToList();
+
 
             if (ComboSort.SelectedIndex == 1)
                 currentAgents = currentAgents.OrderBy(p => p.Title).ToList();
@@ -71,7 +71,6 @@ namespace agent_glazki
                 currentAgents = currentAgents.OrderBy(p => p.Priority).ToList();
             if (ComboSort.SelectedIndex == 6)
                 currentAgents = currentAgents.OrderByDescending(p => p.Priority).ToList();
-            
             AgentListView.ItemsSource = currentAgents;
             TableList = currentAgents;
             ChangePage(0, 0);
@@ -164,11 +163,6 @@ namespace agent_glazki
                 for (int i = 1; i <=CountPage; i++)
                     PageListBox.Items.Add(i);
                 PageListBox.SelectedIndex = CurrentPage;
-
-                min = CurrentPage * 10 + 10 < CountRecords ? CurrentPage * 10 + 10 : CountRecords;
-                TBCount.Text = min.ToString();
-                TBAllRecords.Text = " из " + CountRecords.ToString();
-
                 AgentListView.ItemsSource = CurrentPageList;
                 AgentListView.Items.Refresh();
             }
