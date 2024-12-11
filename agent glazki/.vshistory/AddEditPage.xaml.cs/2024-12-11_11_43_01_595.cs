@@ -26,6 +26,7 @@ namespace agent_glazki
         {
             InitializeComponent();
 
+            ComboType.SelectedIndex = 0;
 
             if (SelectedAgent != null)
             {
@@ -51,14 +52,12 @@ namespace agent_glazki
                 errors.AppendLine("Укажите приоритет агента");
             if (string.IsNullOrWhiteSpace(_currentAgent.INN))
                 errors.AppendLine("Укажите ИНН агента");
-            else if (_currentAgent.INN.Length != 10)
-                errors.AppendLine("Укажите 10 символов ИНН");
+            if (_currentAgent.INN.Length != 10)
+                errors.AppendLine("Укажите 11 символов ИНН");
             if (string.IsNullOrWhiteSpace(_currentAgent.KPP))
                 errors.AppendLine("Укажите КПП агента");
-            else if (_currentAgent.KPP.Length != 9)
+            if (_currentAgent.KPP.Length !=9)
                 errors.AppendLine("Укажите 9 символов КПП");
-            if (_currentAgent.Logo.Length >= 100)
-                errors.AppendLine("Укажите короткий путь для картинки! (100 символов)");
             if (_currentAgent.Priority <= 0)
                 errors.AppendLine("Укажите положительный приоритет агента");
             if (string.IsNullOrWhiteSpace(_currentAgent.Phone))
@@ -127,12 +126,12 @@ namespace agent_glazki
                         AbdeevGlazkiSaveEntities.GetContext().Agent.Remove(_currentAgent);
                         if (currentAgentPriorityHistory.Count != 0)
                         {
-                            for (int i = 0; currentRealizeProduct.Count == i; i++)
+                            for (int i = 0; currentAgentPriorityHistory.Count == i; i++)
                                 AbdeevGlazkiSaveEntities.GetContext().AgentPriorityHistory.Remove(currentAgentPriorityHistory[i]);
                         }
                         if (currentShop.Count != 0)
                         {
-                            for (int i = 0; currentRealizeProduct.Count == i; i++)
+                            for (int i = 0; currentShop.Count == i; i++)
                                 AbdeevGlazkiSaveEntities.GetContext().Shop.Remove(currentShop[i]);
                         }
                         AbdeevGlazkiSaveEntities.GetContext().SaveChanges();

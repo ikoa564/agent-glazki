@@ -52,13 +52,11 @@ namespace agent_glazki
             if (string.IsNullOrWhiteSpace(_currentAgent.INN))
                 errors.AppendLine("Укажите ИНН агента");
             else if (_currentAgent.INN.Length != 10)
-                errors.AppendLine("Укажите 10 символов ИНН");
+                errors.AppendLine("Укажите 11 символов ИНН");
             if (string.IsNullOrWhiteSpace(_currentAgent.KPP))
                 errors.AppendLine("Укажите КПП агента");
             else if (_currentAgent.KPP.Length != 9)
                 errors.AppendLine("Укажите 9 символов КПП");
-            if (_currentAgent.Logo.Length >= 100)
-                errors.AppendLine("Укажите короткий путь для картинки! (100 символов)");
             if (_currentAgent.Priority <= 0)
                 errors.AppendLine("Укажите положительный приоритет агента");
             if (string.IsNullOrWhiteSpace(_currentAgent.Phone))
@@ -84,6 +82,7 @@ namespace agent_glazki
                 AbdeevGlazkiSaveEntities.GetContext().Agent.Add(_currentAgent);
             try
             {
+                MessageBox.Show(_currentAgent.Logo);
                 AbdeevGlazkiSaveEntities.GetContext().SaveChanges();
                 MessageBox.Show("Информация сохранена");
                 Manager.MainFrame.GoBack();

@@ -25,13 +25,14 @@ namespace agent_glazki
         public AddEditPage(Agent SelectedAgent)
         {
             InitializeComponent();
-
-
             if (SelectedAgent != null)
-            {
                 _currentAgent = SelectedAgent;
-                ComboType.SelectedIndex = _currentAgent.AgentTypeID - 1;
-            }
+
+            // Загружаем типы агентов напрямую в ComboBox
+            ComboType.ItemsSource = AbdeevGlazkiSaveEntities.GetContext().AgentType.ToList();
+            ComboType.DisplayMemberPath = "Title"; // Отображаемые названия
+            ComboType.SelectedValuePath = "ID";   // Идентификатор для привязки
+            ComboType.SelectedValue = _currentAgent.AgentTypeID; // Устанавливаем начальное значение
 
             DataContext = _currentAgent;
         }
@@ -51,14 +52,8 @@ namespace agent_glazki
                 errors.AppendLine("Укажите приоритет агента");
             if (string.IsNullOrWhiteSpace(_currentAgent.INN))
                 errors.AppendLine("Укажите ИНН агента");
-            else if (_currentAgent.INN.Length != 10)
-                errors.AppendLine("Укажите 10 символов ИНН");
             if (string.IsNullOrWhiteSpace(_currentAgent.KPP))
                 errors.AppendLine("Укажите КПП агента");
-            else if (_currentAgent.KPP.Length != 9)
-                errors.AppendLine("Укажите 9 символов КПП");
-            if (_currentAgent.Logo.Length >= 100)
-                errors.AppendLine("Укажите короткий путь для картинки! (100 символов)");
             if (_currentAgent.Priority <= 0)
                 errors.AppendLine("Укажите положительный приоритет агента");
             if (string.IsNullOrWhiteSpace(_currentAgent.Phone))
@@ -78,7 +73,6 @@ namespace agent_glazki
                 return;
             }
 
-            _currentAgent.AgentTypeID = ComboType.SelectedIndex + 1;
 
             if (_currentAgent.ID == 0)
                 AbdeevGlazkiSaveEntities.GetContext().Agent.Add(_currentAgent);
@@ -108,16 +102,8 @@ namespace agent_glazki
         {
             var currentRealizeProduct = AbdeevGlazkiSaveEntities.GetContext().ProductSale.ToList();
             currentRealizeProduct = currentRealizeProduct.Where(p => p.AgentID == _currentAgent.ID).ToList();
-
-            var currentAgentPriorityHistory = AbdeevGlazkiSaveEntities.GetContext().AgentPriorityHistory.ToList();
-            currentAgentPriorityHistory = currentAgentPriorityHistory.Where(p => p.AgentID == _currentAgent.ID).ToList();
-
-            var currentShop = AbdeevGlazkiSaveEntities.GetContext().Shop.ToList();
-            currentShop = currentShop.Where(p => p.AgentID == _currentAgent.ID).ToList();
-
-
             if (currentRealizeProduct.Count != 0)
-                MessageBox.Show("Невозможно выполнить удаление, т.к. существуют информация о реализации продукции");
+                MessageBox.Show("Невозможно выполнить удаление, т.к. существуют записи на эту услугу");
             else
             {
                 if (MessageBox.Show("Вы точно хотите выполнить удаление?", "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
@@ -125,16 +111,6 @@ namespace agent_glazki
                     try
                     {
                         AbdeevGlazkiSaveEntities.GetContext().Agent.Remove(_currentAgent);
-                        if (currentAgentPriorityHistory.Count != 0)
-                        {
-                            for (int i = 0; currentRealizeProduct.Count == i; i++)
-                                AbdeevGlazkiSaveEntities.GetContext().AgentPriorityHistory.Remove(currentAgentPriorityHistory[i]);
-                        }
-                        if (currentShop.Count != 0)
-                        {
-                            for (int i = 0; currentRealizeProduct.Count == i; i++)
-                                AbdeevGlazkiSaveEntities.GetContext().Shop.Remove(currentShop[i]);
-                        }
                         AbdeevGlazkiSaveEntities.GetContext().SaveChanges();
                         Manager.MainFrame.GoBack();
                     }

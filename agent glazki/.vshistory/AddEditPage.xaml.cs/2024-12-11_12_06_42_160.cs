@@ -84,6 +84,7 @@ namespace agent_glazki
                 AbdeevGlazkiSaveEntities.GetContext().Agent.Add(_currentAgent);
             try
             {
+                MessageBox.Show(_currentAgent.Logo);
                 AbdeevGlazkiSaveEntities.GetContext().SaveChanges();
                 MessageBox.Show("Информация сохранена");
                 Manager.MainFrame.GoBack();

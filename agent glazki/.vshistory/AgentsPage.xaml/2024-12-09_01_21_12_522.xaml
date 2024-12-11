@@ -54,6 +54,7 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Image Width="200" Grid.Column="0" Grid.RowSpan="4" Stretch="UniformToFill" HorizontalAlignment="Center">
                             <Image.Source>
@@ -76,7 +77,10 @@
                         <TextBlock Text="{Binding Phone}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" FontSize="20"></TextBlock>
                         <TextBlock Text="{Binding Priority, StringFormat=Приоритетность: {0}}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" FontSize="20" ></TextBlock>
 
-                        <Button Name="EditBtn" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Right" Content="Редактировать" Margin="2" Click="EditBtn_Click"></Button>
+                        <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal">
+                            <Button Name="EditBtn" Content="Редактировать" Margin="2" Click="EditBtn_Click"></Button>
+                            <Button Name="DeleteBtn" Content="Удалить" Margin="2"></Button>
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
