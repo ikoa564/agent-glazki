@@ -127,12 +127,12 @@ namespace agent_glazki
                         AbdeevGlazkiSaveEntities.GetContext().Agent.Remove(_currentAgent);
                         if (currentAgentPriorityHistory.Count != 0)
                         {
-                            for (int i = 0; currentAgentPriorityHistory.Count == i; i++)
+                            for (int i = 0; currentRealizeProduct.Count == i; i++)
                                 AbdeevGlazkiSaveEntities.GetContext().AgentPriorityHistory.Remove(currentAgentPriorityHistory[i]);
                         }
                         if (currentShop.Count != 0)
                         {
-                            for (int i = 0; currentShop.Count == i; i++)
+                            for (int i = 0; currentRealizeProduct.Count == i; i++)
                                 AbdeevGlazkiSaveEntities.GetContext().Shop.Remove(currentShop[i]);
                         }
                         AbdeevGlazkiSaveEntities.GetContext().SaveChanges();
