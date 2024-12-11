@@ -57,8 +57,7 @@ namespace agent_glazki
                 errors.AppendLine("Укажите КПП агента");
             else if (_currentAgent.KPP.Length != 9)
                 errors.AppendLine("Укажите 9 символов КПП");
-            if (string.IsNullOrWhiteSpace(_currentAgent.Logo));
-            else if (_currentAgent.Logo.Length >= 100)
+            if (_currentAgent.Logo.Length >= 100)
                 errors.AppendLine("Укажите короткий путь для картинки! (100 символов)");
             if (_currentAgent.Priority <= 0)
                 errors.AppendLine("Укажите положительный приоритет агента");
