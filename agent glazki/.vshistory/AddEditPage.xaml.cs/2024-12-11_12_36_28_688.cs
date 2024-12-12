@@ -100,14 +100,7 @@ namespace agent_glazki
             OpenFileDialog myOpenFileDialog = new OpenFileDialog();
             if (myOpenFileDialog.ShowDialog() == true)
             {
-                string path = myOpenFileDialog.FileName;
-
-                // Находим индекс слова "agents"
-                int index = path.LastIndexOf("agents");
-
-                // Извлекаем подстроку, начиная от слова "agents"
-                path = "\\" + path.Substring(index);
-                _currentAgent.Logo = path;
+                _currentAgent.Logo = myOpenFileDialog.FileName;
                 LogoImage.Source = new BitmapImage(new Uri(myOpenFileDialog.FileName));
             }
         }

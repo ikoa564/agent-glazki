@@ -21,6 +21,33 @@ namespace agent_glazki
         public System.DateTime SaleDate { get; set; }
         public int ProductCount { get; set; }
 
+        public int Discount
+        {
+            get
+            {
+                int totalCost = 0;
+
+                var countsale;
+                var cost = AbdeevGlazkiSaveEntities.GetContext().Product.ToList();
+                cost = cost.Where(p => p.ID == ).ToList();
+
+
+                int disc = countsale * cost;
+                if (totalCost >= 0 && totalCost < 10000)
+                    disc = 0;
+                if (totalCost >= 10000 && totalCost < 50000)
+                    disc = 5;
+                if (totalCost >= 50000 && totalCost < 150000)
+                    disc = 10;
+                if (totalCost >= 150000 && totalCost < 500000)
+                    disc = 20;
+                if (totalCost >= 500000)
+                    disc = 25;
+
+                return disc;
+            }
+        }
+
         public virtual Agent Agent { get; set; }
         public virtual Product Product { get; set; }
     }

@@ -34,8 +34,6 @@ namespace agent_glazki
             AgentListView.ItemsSource = currentAgents;
             ComboSort.SelectedIndex = 0;
             ComboType.SelectedIndex = 0;
-            ChangePriorityBtn.Visibility = Visibility.Hidden;
-
 
             UpdateAgents();
         }
@@ -44,17 +42,17 @@ namespace agent_glazki
             var currentAgents = AbdeevGlazkiSaveEntities.GetContext().Agent.ToList();
 
             if (ComboType.SelectedIndex == 1)
-                currentAgents = currentAgents.Where(p => p.AgentTypeID == 1).ToList();
+                currentAgents = currentAgents.Where(p => p.AgentTypeID==1).ToList();
             if (ComboType.SelectedIndex == 2)
-                currentAgents = currentAgents.Where(p => p.AgentTypeID == 2).ToList();
+                currentAgents = currentAgents.Where(p => p.AgentTypeID==2).ToList();
             if (ComboType.SelectedIndex == 3)
-                currentAgents = currentAgents.Where(p => p.AgentTypeID == 3).ToList();
+                currentAgents = currentAgents.Where(p => p.AgentTypeID==3).ToList();
             if (ComboType.SelectedIndex == 4)
-                currentAgents = currentAgents.Where(p => p.AgentTypeID == 4).ToList();
+                currentAgents = currentAgents.Where(p => p.AgentTypeID==4).ToList();
             if (ComboType.SelectedIndex == 5)
-                currentAgents = currentAgents.Where(p => p.AgentTypeID == 5).ToList();
+                currentAgents = currentAgents.Where(p => p.AgentTypeID==5).ToList();
             if (ComboType.SelectedIndex == 6)
-                currentAgents = currentAgents.Where(p => p.AgentTypeID == 6).ToList();
+                currentAgents = currentAgents.Where(p => p.AgentTypeID==6).ToList();
 
             currentAgents = currentAgents.Where(p =>
                 p.Title.ToLower().Contains(TBoxSearch.Text.ToLower())
@@ -73,7 +71,7 @@ namespace agent_glazki
                 currentAgents = currentAgents.OrderBy(p => p.Priority).ToList();
             if (ComboSort.SelectedIndex == 6)
                 currentAgents = currentAgents.OrderByDescending(p => p.Priority).ToList();
-
+            
             AgentListView.ItemsSource = currentAgents;
             TableList = currentAgents;
             ChangePage(0, 0);
@@ -123,7 +121,7 @@ namespace agent_glazki
 
             if (selectedPage.HasValue)
             {
-                if (selectedPage >= 0 && selectedPage <= CountPage)
+                if (selectedPage >=0 && selectedPage <= CountPage)
                 {
                     CurrentPage = (int)selectedPage;
                     min = CurrentPage * 10 + 10 < CountRecords ? CurrentPage * 10 + 10 : CountRecords;
@@ -163,7 +161,7 @@ namespace agent_glazki
             if (IfUpdate)
             {
                 PageListBox.Items.Clear();
-                for (int i = 1; i <= CountPage; i++)
+                for (int i = 1; i <=CountPage; i++)
                     PageListBox.Items.Add(i);
                 PageListBox.SelectedIndex = CurrentPage;
 
@@ -199,19 +197,6 @@ namespace agent_glazki
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
             Manager.MainFrame.Navigate(new AddEditPage((sender as Button).DataContext as Agent));
-        }
-
-        private void AgentListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (AgentListView.SelectedItems.Count > 1)
-                ChangePriorityBtn.Visibility = Visibility.Visible;
-            else
-                ChangePriorityBtn.Visibility = Visibility.Hidden;
-        }
-
-        private void ChangePriorityBtn_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("hello");
         }
     }
 }

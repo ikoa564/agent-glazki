@@ -14,7 +14,6 @@ namespace agent_glazki
     using System.Linq;
     using System.Runtime.InteropServices;
     using System.Runtime.Remoting.Contexts;
-    using System.Windows.Media;
 
     public partial class Agent
     {
@@ -41,52 +40,25 @@ namespace agent_glazki
         {
             get
             {
-                var salesCount = AbdeevGlazkiSaveEntities.GetContext().ProductSale
-                .Where(p => p.AgentID == ID)
-                 .Count();
 
-                if (salesCount > 0)
-                {
-                    var totalCost = AbdeevGlazkiSaveEntities.GetContext().ProductSale
-                        .Where(p => p.AgentID == ID)
-                        .Sum(p => p.ProductCount * p.Product.MinCostForAgent);
+                var totalCost = AbdeevGlazkiSaveEntities.GetContext().ProductSale
+                    .Where(p => p.AgentID == ID && p.Product != null)
+                    .Sum(p => p.ProductCount * p.Product.MinCostForAgent);
 
-                    int disc;
-                    if (totalCost >= 500000)
-                        disc = 25;
-                    else if (totalCost >= 150000)
-                        disc = 20;
-                    else if (totalCost >= 50000)
-                        disc = 10;
-                    else if (totalCost >= 10000)
-                        disc = 5;
-                    else
-                        disc = 0;
 
-                    return disc;
-                }
-                else
-                    return 0;
-            }
-        }
+                int disc = 0;
+                if (totalCost >= 0 && totalCost < 10000)
+                    disc = 0;
+                if (totalCost >= 10000 && totalCost < 50000)
+                    disc = 5;
+                if (totalCost >= 50000 && totalCost < 150000)
+                    disc = 10;
+                if (totalCost >= 150000 && totalCost < 500000)
+                    disc = 20;
+                if (totalCost >= 500000)
+                    disc = 25;
 
-        public int CountSale
-        {
-            get
-            {
-                var salesCount = AbdeevGlazkiSaveEntities.GetContext().ProductSale
-                .Where(p => p.AgentID == ID)
-                 .Count();
-                if (salesCount > 0)
-                {
-                    var countSale = AbdeevGlazkiSaveEntities.GetContext().ProductSale
-                        .Where(p => p.AgentID == ID)
-                        .Sum(p => p.ProductCount);
-                    
-                    return countSale;
-                }
-                else
-                    return 0;
+                return disc;
             }
         }
 
@@ -101,17 +73,6 @@ namespace agent_glazki
         public string DirectorName { get; set; }
         public string INN { get; set; }
         public string KPP { get; set; }
-
-        public SolidColorBrush BackgroundStyle
-        {
-            get
-            {
-                if (Discount >= 25)
-                    return (SolidColorBrush)new BrushConverter().ConvertFromString("LightGreen");
-                else
-                    return (SolidColorBrush)new BrushConverter().ConvertFromString("White");
-            }
-        }
 
 
         public virtual AgentType AgentType { get; set; }

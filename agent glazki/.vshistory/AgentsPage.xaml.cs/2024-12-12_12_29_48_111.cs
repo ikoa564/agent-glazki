@@ -34,8 +34,6 @@ namespace agent_glazki
             AgentListView.ItemsSource = currentAgents;
             ComboSort.SelectedIndex = 0;
             ComboType.SelectedIndex = 0;
-            ChangePriorityBtn.Visibility = Visibility.Hidden;
-
 
             UpdateAgents();
         }

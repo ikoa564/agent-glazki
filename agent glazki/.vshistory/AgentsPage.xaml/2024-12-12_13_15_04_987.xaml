@@ -43,7 +43,7 @@
         <ListView Name="AgentListView" Grid.Row="2" HorizontalContentAlignment="Stretch" SelectionChanged="AgentListView_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Background="{Binding BackgroundStyle}">
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>

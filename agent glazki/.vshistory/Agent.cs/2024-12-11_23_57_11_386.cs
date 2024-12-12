@@ -13,8 +13,6 @@ namespace agent_glazki
     using System.Collections.Generic;
     using System.Linq;
     using System.Runtime.InteropServices;
-    using System.Runtime.Remoting.Contexts;
-    using System.Windows.Media;
 
     public partial class Agent
     {
@@ -25,68 +23,52 @@ namespace agent_glazki
             this.ProductSale = new HashSet<ProductSale>();
             this.Shop = new HashSet<Shop>();
         }
-
+    
         public int ID { get; set; }
         public int AgentTypeID { get; set; }
 
         public string AgentTypeText
-        {
-            get
-            {
-                return AgentType.Title;
-            }
+        { get 
+            { 
+                return AgentType.Title; 
+            } 
         }
 
         public int Discount
         {
             get
             {
-                var salesCount = AbdeevGlazkiSaveEntities.GetContext().ProductSale
-                .Where(p => p.AgentID == ID)
-                 .Count();
+                int totalCost = 0;
 
-                if (salesCount > 0)
+                // Получаем список продаж и связанных продуктов
+                var sales = AbdeevGlazkiSaveEntities.GetContext().ProductSale
+                    .Include("Product") // Подгружаем связанные данные о продукте
+                    .Where(ps => ps.AgentID == this.ID) // Фильтруем по агенту
+                    .ToList();
+
+                // Вычисляем общую стоимость
+                foreach (var sale in sales)
                 {
-                    var totalCost = AbdeevGlazkiSaveEntities.GetContext().ProductSale
-                        .Where(p => p.AgentID == ID)
-                        .Sum(p => p.ProductCount * p.Product.MinCostForAgent);
-
-                    int disc;
-                    if (totalCost >= 500000)
-                        disc = 25;
-                    else if (totalCost >= 150000)
-                        disc = 20;
-                    else if (totalCost >= 50000)
-                        disc = 10;
-                    else if (totalCost >= 10000)
-                        disc = 5;
-                    else
-                        disc = 0;
-
-                    return disc;
+                    var product = AbdeevGlazkiSaveEntities.GetContext().Product.FirstOrDefault(p => p.ID == sale.ProductID);
+                    if (product != null)
+                    {
+                        totalCost += (int)(product.MinCostForAgent * sale.ProductCount); // Приведение к int
+                    }
                 }
-                else
-                    return 0;
-            }
-        }
 
-        public int CountSale
-        {
-            get
-            {
-                var salesCount = AbdeevGlazkiSaveEntities.GetContext().ProductSale
-                .Where(p => p.AgentID == ID)
-                 .Count();
-                if (salesCount > 0)
-                {
-                    var countSale = AbdeevGlazkiSaveEntities.GetContext().ProductSale
-                        .Where(p => p.AgentID == ID)
-                        .Sum(p => p.ProductCount);
-                    
-                    return countSale;
-                }
-                else
-                    return 0;
+                int disc = 0;
+                if (totalCost >= 0 && totalCost < 10000)
+                    disc = 0;
+                if (totalCost >= 10000 && totalCost < 50000)
+                    disc = 5;
+                if (totalCost >= 50000 && totalCost < 150000)
+                    disc = 10;
+                if (totalCost >= 150000 && totalCost < 500000)
+                    disc = 20;
+                if (totalCost >= 500000)
+                    disc = 25;
+
+                return disc;
             }
         }
 
@@ -94,24 +76,13 @@ namespace agent_glazki
         public string Email { get; set; }
         public string Phone { get; set; }
 
-
+       
         public string Logo { get; set; }
         public string Address { get; set; }
         public int Priority { get; set; }
         public string DirectorName { get; set; }
         public string INN { get; set; }
         public string KPP { get; set; }
-
-        public SolidColorBrush BackgroundStyle
-        {
-            get
-            {
-                if (Discount >= 25)
-                    return (SolidColorBrush)new BrushConverter().ConvertFromString("LightGreen");
-                else
-                    return (SolidColorBrush)new BrushConverter().ConvertFromString("White");
-            }
-        }
 
 
         public virtual AgentType AgentType { get; set; }

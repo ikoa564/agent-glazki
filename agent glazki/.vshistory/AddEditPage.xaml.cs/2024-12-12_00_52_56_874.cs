@@ -106,9 +106,10 @@ namespace agent_glazki
                 int index = path.LastIndexOf("agents");
 
                 // Извлекаем подстроку, начиная от слова "agents"
-                path = "\\" + path.Substring(index);
-                _currentAgent.Logo = path;
-                LogoImage.Source = new BitmapImage(new Uri(myOpenFileDialog.FileName));
+                path = path.Substring(index);
+                MessageBox.Show(path);
+                //_currentAgent.Logo = myOpenFileDialog.FileName;
+                //LogoImage.Source = new BitmapImage(new Uri(myOpenFileDialog.FileName));
             }
         }
 

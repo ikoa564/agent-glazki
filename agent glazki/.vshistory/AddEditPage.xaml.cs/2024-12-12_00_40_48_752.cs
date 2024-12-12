@@ -100,15 +100,24 @@ namespace agent_glazki
             OpenFileDialog myOpenFileDialog = new OpenFileDialog();
             if (myOpenFileDialog.ShowDialog() == true)
             {
-                string path = myOpenFileDialog.FileName;
+                string selectedPath = myOpenFileDialog.FileName;
+                string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                string agentsDir = baseDir + "agents\\";
 
-                // Находим индекс слова "agents"
-                int index = path.LastIndexOf("agents");
+                if (selectedPath.StartsWith(agentsDir, StringComparison.OrdinalIgnoreCase))
+                {
+                    // Extract the relative path
+                    string relativePath = selectedPath.Substring(agentsDir.Length);
+                    _currentAgent.Logo = $"\\agents\\{relativePath}";
 
-                // Извлекаем подстроку, начиная от слова "agents"
-                path = "\\" + path.Substring(index);
-                _currentAgent.Logo = path;
-                LogoImage.Source = new BitmapImage(new Uri(myOpenFileDialog.FileName));
+                    // Set the image source using the full path
+                    string fullPath = baseDir + "agents\\" + relativePath;
+                    LogoImage.Source = new BitmapImage(new Uri(fullPath));
+                }
+                else
+                {
+                    MessageBox.Show("Please select an image from the agents folder.");
+                }
             }
         }
 
