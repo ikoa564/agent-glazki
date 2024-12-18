@@ -170,6 +170,7 @@ namespace agent_glazki
 
         private void UpdateProductSale()
         {
+            ProductSaleListView.ItemsSource = null;
             var _currentProductSale = AbdeevGlazkiSaveEntities.GetContext().ProductSale
                 .Where(p => p.AgentID == _currentAgent.ID).ToList();
 
@@ -177,15 +178,11 @@ namespace agent_glazki
             //    p.ProductName.ToLower().Contains(SearchTB.Text.ToLower())).ToList();
 
             ProductSaleListView.ItemsSource = _currentProductSale;
-            ProductSaleListView.Items.Refresh();
         }
 
         private void ProductSale_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ProductSaleListView.SelectedItems.Count >= 1)
-                DeleteProductSale.Visibility = Visibility.Visible;
-            else
-                DeleteProductSale.Visibility = Visibility.Hidden;
+
         }
 
         private void DeleteProductSale_Click(object sender, RoutedEventArgs e)
@@ -198,14 +195,7 @@ namespace agent_glazki
                 {
                     try
                     {
-                        foreach (var item in selected)
-                        {
-                            var productSaleToDelete = item as ProductSale; // Приводим объект к типу ProductSale
-                            if (productSaleToDelete != null)
-                            {
-                                AbdeevGlazkiSaveEntities.GetContext().ProductSale.Remove(productSaleToDelete);
-                            }
-                        }
+                        //AbdeevGlazkiSaveEntities.GetContext().ProductSale.Remove(selected);
                         AbdeevGlazkiSaveEntities.GetContext().SaveChanges();
                         UpdateProductSale();
                     }
@@ -235,12 +225,7 @@ namespace agent_glazki
                 MessageBox.Show(errors.ToString());
             else
             {
-                //_currentProductSale.ProductID = ProductNameComboBox.SelectedIndex + 1;
-                string selectedProductName = ProductNameComboBox.SelectedItem as string;
-                var selectedProduct = AbdeevGlazkiSaveEntities.GetContext().Product
-        .FirstOrDefault(p => p.Title == selectedProductName);
-                _currentProductSale.ProductID = selectedProduct.ID;
-
+                _currentProductSale.ProductID = (int)ProductNameComboBox.SelectedValue + 1;
                 _currentProductSale.AgentID = _currentAgent.ID;
                 _currentProductSale.ProductCount = Convert.ToInt32(ProductCountTB.Text);
                 _currentProductSale.SaleDate = DatePickerProduct.SelectedDate.Value;

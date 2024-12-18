@@ -14,7 +14,6 @@ namespace agent_glazki
     using System.Linq;
     using System.Runtime.InteropServices;
     using System.Runtime.Remoting.Contexts;
-    using System.Windows.Documents;
     using System.Windows.Media;
 
     public partial class Agent
@@ -71,21 +70,20 @@ namespace agent_glazki
             }
         }
 
-        public decimal CountSale
+        public int CountSale
         {
             get
             {
                 var salesCount = AbdeevGlazkiSaveEntities.GetContext().ProductSale
                 .Where(p => p.AgentID == ID)
                  .Count();
-
                 if (salesCount > 0)
                 {
-                    var totalCost = AbdeevGlazkiSaveEntities.GetContext().ProductSale
+                    var countSale = AbdeevGlazkiSaveEntities.GetContext().ProductSale
                         .Where(p => p.AgentID == ID)
-                        .Sum(p => p.ProductCount * p.Product.MinCostForAgent);
-
-                    return (decimal)totalCost;
+                        .Sum(p => p.ProductCount);
+                    
+                    return countSale;
                 }
                 else
                     return 0;

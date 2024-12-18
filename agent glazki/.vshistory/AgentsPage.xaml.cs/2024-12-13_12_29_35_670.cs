@@ -220,12 +220,8 @@ namespace agent_glazki
             EditPriority editPriorityWindow = new EditPriority(maxPriority);
             editPriorityWindow.ShowDialog();
 
-            if (string.IsNullOrWhiteSpace(editPriorityWindow.TBoxPriority.Text))
-                MessageBox.Show("Введите значение приоритета");
-            else if (Convert.ToInt32(editPriorityWindow.TBoxPriority.Text) <= 0)
-                MessageBox.Show("Введите положительное значение приоритета");
-            else
-            {
+            
+            
                 int newPriority = Convert.ToInt32(editPriorityWindow.TBoxPriority.Text);
                 foreach (Agent agent in AgentListView.SelectedItems)
                     agent.Priority = newPriority;
@@ -239,7 +235,7 @@ namespace agent_glazki
                 {
                     MessageBox.Show(ex.Message);
                 }
-            }
+            
         }
     }
 }

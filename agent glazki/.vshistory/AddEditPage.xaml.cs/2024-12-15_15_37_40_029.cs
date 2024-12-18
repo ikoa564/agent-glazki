@@ -182,10 +182,7 @@ namespace agent_glazki
 
         private void ProductSale_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ProductSaleListView.SelectedItems.Count >= 1)
-                DeleteProductSale.Visibility = Visibility.Visible;
-            else
-                DeleteProductSale.Visibility = Visibility.Hidden;
+
         }
 
         private void DeleteProductSale_Click(object sender, RoutedEventArgs e)
@@ -198,14 +195,7 @@ namespace agent_glazki
                 {
                     try
                     {
-                        foreach (var item in selected)
-                        {
-                            var productSaleToDelete = item as ProductSale; // Приводим объект к типу ProductSale
-                            if (productSaleToDelete != null)
-                            {
-                                AbdeevGlazkiSaveEntities.GetContext().ProductSale.Remove(productSaleToDelete);
-                            }
-                        }
+                        //AbdeevGlazkiSaveEntities.GetContext().ProductSale.Remove(selected);
                         AbdeevGlazkiSaveEntities.GetContext().SaveChanges();
                         UpdateProductSale();
                     }

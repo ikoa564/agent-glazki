@@ -177,47 +177,29 @@ namespace agent_glazki
             //    p.ProductName.ToLower().Contains(SearchTB.Text.ToLower())).ToList();
 
             ProductSaleListView.ItemsSource = _currentProductSale;
-            ProductSaleListView.Items.Refresh();
         }
 
         private void ProductSale_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ProductSaleListView.SelectedItems.Count >= 1)
-                DeleteProductSale.Visibility = Visibility.Visible;
-            else
-                DeleteProductSale.Visibility = Visibility.Hidden;
+
         }
 
         private void DeleteProductSale_Click(object sender, RoutedEventArgs e)
         {
             var selected = ProductSaleListView.SelectedItems;
-
-            if (selected.Count >= 1)
+            if (MessageBox.Show("Вы точно хотите выполнить удаление?", "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                if (MessageBox.Show("Вы точно хотите выполнить удаление?", "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                try
                 {
-                    try
-                    {
-                        foreach (var item in selected)
-                        {
-                            var productSaleToDelete = item as ProductSale; // Приводим объект к типу ProductSale
-                            if (productSaleToDelete != null)
-                            {
-                                AbdeevGlazkiSaveEntities.GetContext().ProductSale.Remove(productSaleToDelete);
-                            }
-                        }
-                        AbdeevGlazkiSaveEntities.GetContext().SaveChanges();
-                        UpdateProductSale();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message.ToString());
-                    }
+                    AbdeevGlazkiSaveEntities.GetContext().ProductSale.Remove(_currentProductSale);
+                    AbdeevGlazkiSaveEntities.GetContext().SaveChanges();
+                    UpdateProductSale();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
                 }
             }
-            else
-                MessageBox.Show("Выберите позиции!");
-
         }
 
         private void AddProductSale_Click(object sender, RoutedEventArgs e)
@@ -235,12 +217,7 @@ namespace agent_glazki
                 MessageBox.Show(errors.ToString());
             else
             {
-                //_currentProductSale.ProductID = ProductNameComboBox.SelectedIndex + 1;
-                string selectedProductName = ProductNameComboBox.SelectedItem as string;
-                var selectedProduct = AbdeevGlazkiSaveEntities.GetContext().Product
-        .FirstOrDefault(p => p.Title == selectedProductName);
-                _currentProductSale.ProductID = selectedProduct.ID;
-
+                _currentProductSale.ProductID = ProductNameComboBox.SelectedIndex + 1;
                 _currentProductSale.AgentID = _currentAgent.ID;
                 _currentProductSale.ProductCount = Convert.ToInt32(ProductCountTB.Text);
                 _currentProductSale.SaleDate = DatePickerProduct.SelectedDate.Value;

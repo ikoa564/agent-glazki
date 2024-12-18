@@ -71,7 +71,7 @@ namespace agent_glazki
             }
         }
 
-        public decimal CountSale
+        public int CountSale
         {
             get
             {
@@ -85,7 +85,7 @@ namespace agent_glazki
                         .Where(p => p.AgentID == ID)
                         .Sum(p => p.ProductCount * p.Product.MinCostForAgent);
 
-                    return (decimal)totalCost;
+                    return (int)totalCost;
                 }
                 else
                     return 0;

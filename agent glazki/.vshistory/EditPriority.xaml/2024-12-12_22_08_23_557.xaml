@@ -1,0 +1,20 @@
+﻿<Window x:Class="agent_glazki.EditPriority"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:agent_glazki"
+        mc:Ignorable="d"
+        Title="Изменить приоритет" Height="200" Width="400" FontFamily="Century Gothic">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Введите новый приоритет" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBox Grid.Row="1" Name="TBoxPriority" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" ></TextBox>
+        <Button Grid.Row="2" Name="EditPriorityBtn" Click="EditPriorityBtn_Click" Content="Изменить приоритет" Width="auto"></Button>
+    </Grid>
+</Window>

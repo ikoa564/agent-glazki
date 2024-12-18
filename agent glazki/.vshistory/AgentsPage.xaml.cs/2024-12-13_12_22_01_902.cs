@@ -221,9 +221,7 @@ namespace agent_glazki
             editPriorityWindow.ShowDialog();
 
             if (string.IsNullOrWhiteSpace(editPriorityWindow.TBoxPriority.Text))
-                MessageBox.Show("Введите значение приоритета");
-            else if (Convert.ToInt32(editPriorityWindow.TBoxPriority.Text) <= 0)
-                MessageBox.Show("Введите положительное значение приоритета");
+                MessageBox.Show("Информация об изменениях приоритетах отсутствует");
             else
             {
                 int newPriority = Convert.ToInt32(editPriorityWindow.TBoxPriority.Text);

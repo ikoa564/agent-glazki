@@ -73,9 +73,6 @@
     <Compile Include="AgentType.cs">
       <DependentUpon>ModelAbdeev.tt</DependentUpon>
     </Compile>
-    <Compile Include="EditPriority.xaml.cs">
-      <DependentUpon>EditPriority.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Material.cs">
       <DependentUpon>ModelAbdeev.tt</DependentUpon>
     </Compile>
@@ -116,10 +113,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AgentsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="EditPriority.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -211,34 +211,15 @@ namespace agent_glazki
 
         private void ChangePriorityBtn_Click(object sender, RoutedEventArgs e)
         {
-            int maxPriority = 0;
-            foreach (Agent agent in AgentListView.SelectedItems)
+            Agent selectedAgent = (sender as Button).DataContext as Agent;
+            if (selectedAgent != null)
             {
-                if (agent.Priority > maxPriority)
-                    maxPriority = agent.Priority;
+                EditPriority editPriorityWindow = new EditPriority(selectedAgent);
+                editPriorityWindow.Show();
             }
-            EditPriority editPriorityWindow = new EditPriority(maxPriority);
-            editPriorityWindow.ShowDialog();
-
-            if (string.IsNullOrWhiteSpace(editPriorityWindow.TBoxPriority.Text))
-                MessageBox.Show("Введите значение приоритета");
-            else if (Convert.ToInt32(editPriorityWindow.TBoxPriority.Text) <= 0)
-                MessageBox.Show("Введите положительное значение приоритета");
             else
             {
-                int newPriority = Convert.ToInt32(editPriorityWindow.TBoxPriority.Text);
-                foreach (Agent agent in AgentListView.SelectedItems)
-                    agent.Priority = newPriority;
-                try
-                {
-                    AbdeevGlazkiSaveEntities.GetContext().SaveChanges();
-                    MessageBox.Show("Приоритеты сохранены");
-                    UpdateAgents();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                MessageBox.Show("Не удалось получить данные о выбранном агенте.");
             }
         }
     }

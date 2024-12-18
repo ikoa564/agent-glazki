@@ -217,28 +217,21 @@ namespace agent_glazki
                 if (agent.Priority > maxPriority)
                     maxPriority = agent.Priority;
             }
+            MessageBox.Show(maxPriority.ToString());
             EditPriority editPriorityWindow = new EditPriority(maxPriority);
-            editPriorityWindow.ShowDialog();
+            editPriorityWindow.Show();
 
-            if (string.IsNullOrWhiteSpace(editPriorityWindow.TBoxPriority.Text))
-                MessageBox.Show("Введите значение приоритета");
-            else if (Convert.ToInt32(editPriorityWindow.TBoxPriority.Text) <= 0)
-                MessageBox.Show("Введите положительное значение приоритета");
-            else
+            foreach (Agent agent in AgentListView.SelectedItems)
+                agent.Priority = editPriorityWindow.NewPriority;
+            UpdateAgents();
+
+            try
             {
-                int newPriority = Convert.ToInt32(editPriorityWindow.TBoxPriority.Text);
-                foreach (Agent agent in AgentListView.SelectedItems)
-                    agent.Priority = newPriority;
-                try
-                {
-                    AbdeevGlazkiSaveEntities.GetContext().SaveChanges();
-                    MessageBox.Show("Приоритеты сохранены");
-                    UpdateAgents();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                AbdeevGlazkiSaveEntities.GetContext().SaveChanges();
+            }
+            catch (Exception ex)
+            { 
+                MessageBox.Show(ex.Message); 
             }
         }
     }
